@@ -1,9 +1,12 @@
+![image](https://github.com/user-attachments/assets/9eb143e8-ac4a-461d-9db9-61848b95e02a)#### Summary
 proposes a two-stage method for learning robust deep visual representations from EEG brain recordings. The first stage involves obtaining EEG-derived features, and the second stage uses these features for image generation and classification. The authors claim that their method is generalizable across three different datasets and achieves state-of-the-art performance in image synthesis from EEG signals.
 
 
+![image](https://github.com/user-attachments/assets/50cbe076-05a6-41ea-ba02-b9e01cb68cf8)
+
 This figure shows sample images generated from EEG signals using a technique called EEGStyleGAN-ADA. Each image is generated with different EEG signals across different classes from the EEGCVPR40 dataset.
 
-**Section 3.1: Feature Extraction from EEG Data**
+#### Feature Extraction
 
 **What is feature extraction?**
 Feature extraction is a process of selecting and transforming raw data into a more meaningful representation that can be used for machine learning tasks.
@@ -24,32 +27,71 @@ The issue with supervised methods is that they require the test data distributio
 The solution is to use self-supervised/metric-based learning methods, which can overcome the issue of non-overlapping data distributions.
 
 **What is the triplet loss function?**
-The triplet loss function is a type of metric learning-based method used for feature learning. It is defined as:
+The triplet loss function is a type of metric learning-based method used for feature learning.
+Training networks using triplet loss helps them learn discriminative features, which leads to better k-means accuracy.
+It is defined as:
 
-$min_θ E ||f_θ(x^a) - f_θ(x^p)||^2 _2 - ||f_θ(x^a) - f_θ(x^n)||^2 _2 + δ$
+$min_θ E [||f_θ(x^a) - f_θ(x^p)||^2 _2 - ||f_θ(x^a) - f_θ(x^n)||^2 _2 + δ]$
 
 Where $f_θ$ is the encoder, $x^a$ is an anchor, $x^p$ is a positive sample, $x^n$ is a negative sample, and $δ$ is the margin distance between the positive and negative samples.
 
 **What is the purpose of semi-hard triplets?**
 Semi-hard triplets prevent the encoder network from generating similar representations for all the data and enforce the learning of discriminative features.
+The semi-hard triplets have the following property: 
+$\left\| f_{\theta}(x_a) - f_{\theta}(x_p) \right\| < \left\| f_{\theta}(x_a) - f_{\theta}(x_n) \right\| < \left( \left\| f_{\theta}(x_a) - f_{\theta}(x_p) \right\| + \delta \right)$
 
+![image](https://github.com/user-attachments/assets/b0f0b4b7-4ede-439b-b5cf-13e520fef6ca)
+
+Figure 5 shows the results of clustering EEG signals using two different architectures: LSTM (Long Short-Term Memory) and CNN (Convolutional Neural Network). The clustering is done using a technique called triplet loss, which is a type of metric learning approach.
+
+The performance of the CNN architecture degrades as the timestep size of the EEG signal decreases. This suggests that the CNN architecture is not as effective at handling shorter EEG signals.
+
+Previous methods have tailored their architectures to specific datasets, whereas the approach described in this article uses a more generalizable architecture that can be applied across different datasets.
+
+#### Showing the generalizability
+the network is trained on 34 classes from EEGCVPR40 [39] dataset and tested on the remaining 6
+classes, which are a dog, cat, fish, canoe, golf, and pool.
+Compared to [ 26], a pre-trained image network is not required. 
+As shown in Table 1, our method performs better and has a higher SVM [12 ] and kNN [25] score.
+![image](https://github.com/user-attachments/assets/fb3b4b57-dafc-47a2-83b1-8dea4c049b22)
+
+We have also shown t-SNE [42] plot for all the 6 unseen classes learned features Fig.6.
+![image](https://github.com/user-attachments/assets/595133d5-2513-4906-81de-1cc77dabf126)
+
+
+#### Image Generation
+
+![image](https://github.com/user-attachments/assets/f9720a41-11c0-4b8f-afa8-45cbb40d2f32)
+The model takes feature vector and noise sampled from iso-tropic Gaussian distribution as input and synthesizes the desired image. StyleGAN-ADA uses adaptive discriminator augmentation, which helps the discriminator learn with limited data by augmenting real images at training time.
+
+#### Joint Space Learning for EEG and Image
 
 **learning joint representations between EEG signals and images**
 The goal is to develop a model that can learn to represent both EEG signals and images in a shared space, allowing for comparisons and relationships to be drawn between the two modalities.
 
-The first figure (Figure 5) shows the results of clustering EEG signals using two different architectures: LSTM (Long Short-Term Memory) and CNN (Convolutional Neural Network). The clustering is done using a technique called triplet loss, which is a type of metric learning approach.
+**Previous Methods**
+1. Use a pre-trained image encoder to generate a representation for images equivalent to an EEG signal and train an EEG encoder network to regress the image feature vector.
+2. train the EEG encoder in a contrastive setting with a triplet loss instead of regressing the image feature vector. utilize the CLIP based method.
 
-The article mentions that the performance of the CNN architecture degrades as the timestep size of the EEG signal decreases. This suggests that the CNN architecture is not as effective at handling shorter EEG signals.
+**This Article's Method**
+Use a pre-trained ResNet50 as an image encoder and a multilayer LSTM network as an EEG feature encoder. 
+During training, freeze the weight of ResNet50 and only update the weights of the LSTM network.
+Use CLIP-based loss for training the complete pipeline. 
+![image](https://github.com/user-attachments/assets/f535031b-5f09-48c9-b379-92b3d7b5468f)
+As shown in Fig.4, each EEG-image pair is treated as a positive sample (diagonal elements) and the rest as a negative sample (non-diagonal elements).  
+Uses a pre-trained image encoder for the EEG-based image retrieval tasks.
 
-The article also mentions that previous methods have tailored their architectures to specific datasets, whereas the approach described in this article uses a more generalizable architecture that can be applied across different datasets.
+![image](https://github.com/user-attachments/assets/986702cd-8472-4901-992e-891bc69b81cf)
 
-Before we move on, do you have any specific questions about this section of the article, or would you like me to summarize the main points again?
+#### Datasets
+| Name | Number of classes | Images per class | EEG channels | No. of participants | EEG-Image pairs | Parent dataset
+|------------|------------|-------------|---------------|-------------|---------------|--------|
+| [EEGCVPR40 ](https://arxiv.org/pdf/2211.06956)   | 40  | 50 | 128 | N/A | 11800 | ImageNet |
+| [ThoughtViz](https://web.njit.edu)   | 10    | 50 | 14 | 23 | N/A | ImageNet |
+| [Object](https://www.crcv.ucf.edu)   | 6    | 12 | 128 | 10 | N/A | Non |
 
-------5------
 
-I'd be happy to help you understand the concepts in this article step by step.
 
-Let's start with the first section. It appears to be discussing EEG (Electroencephalography) signal processing and feature extraction.
 
 **Section 1: Unseen EEG Clustering**
 
