@@ -1,6 +1,7 @@
 # EEG_AI_Image-reconstruction
 
 This page is an analysis and summarization of two papers that attempt to reconstruct images from EEG brain recordings.
+extracting visual information from EEG signals has been a long-standing research focus within the BCI field
 We are living in an era that the AI and EEG are intersecting and we can decode EEG recordings better than ever and are able to obtain valuable insights and results from it.
 This page is a part of a deep dive into one of the many applications of EEG-AI. If you're interested in knowing more about all the other applications of EEG-AI, please visit [EEG-AI Applications Hub](https://github.com/Avir-AI/EEG_Applications_Hub).
 
@@ -13,7 +14,14 @@ This page is a part of a deep dive into one of the many applications of EEG-AI. 
 | [ThoughtViz](https://www.crcv.ucf.edu/papers/acmmm18/thoughtviz.pdf)    | EEG Data          | Reconstructed Images | EEG signal encoding      | Conditional GAN            | Latent space learned from EEG | Conditional GAN generates class-specific images based on thoughts, learns distribution from limited data    | Effective on digits, characters, and object datasets
 | [Brain-Supervised Image Editing](https://openaccess.thecvf.com/content/CVPR2022/papers/Davis_Brain-Supervised_Image_Editing_CVPR_2022_paper.pdf) | EEG Data           | Edited Images        | Brain response encoding     | Generative Adversarial Network (GAN) | Latent space learning via brain responses | Uses implicit brain responses as supervision for learning semantic features and editing images | Comparable performance to manual labeling for semantic editing |
 | [DreamDiffusion](https://arxiv.org/pdf/2306.16934)  | EEG Signals    | Generated Images| Temporal masked signal modeling | Stable Diffusion, CLIP      | Image generation from EEG signals | Leverages pre-trained text-to-image models for generating images directly from EEG, with CLIP for embedding alignment | Promising results with high-quality images, overcoming EEG signal challenges |
-| [Learning Robust Deep Visual Representations from EEG Brain Recordings](https://arxiv.org/abs/2310.16532)   | EEG Signals      | Generated Images | Supervised and Contrastive learning methods | EEG feature extractor, GAN (StyleGAN-ADA) | Image synthesis from EEG signals | Improves image synthesis quality from EEG by using learned EEG representations in contrastive settings | Achieved 62.9% and 36.13% inception score improvement on EEGCVPR40 and ThoughtViz datasets |
+| [EEGStyleGAN-ADA](https://arxiv.org/abs/2310.16532)   | EEG Signals      | Generated Images | Supervised and Contrastive learning methods | EEG feature extractor, GAN (StyleGAN-ADA) | Image synthesis from EEG signals | Improves image synthesis quality from EEG by using learned EEG representations in contrastive settings | Achieved 62.9% and 36.13% inception score improvement on EEGCVPR40 and ThoughtViz datasets |
+| [EEG-conditioned GAN for Image Generation](https://www.crcv.ucf.edu/papers/iccv17/egpaper_for_review.pdf) | EEG Signals (evoked by viewing images) | Generated Images (Object Categories) | EEG signals from 6 subjects while viewing 40 ImageNet object categories | Recurrent Neural Networks (RNN) for EEG feature extraction, GAN for image generation | EEG signals condition GAN to generate images related to observed object categories | - Combines GAN with RNN to process EEG signals for generating images. <br> - Uses EEG signals to condition the image generation process for object categories. <br> - Aimed at "reading the mind" by reconstructing realistic images from brain signals. | Generated images for certain object classes (e.g., pandas, airplanes) were realistic and highly resemble the observed images evoking EEG signals. |
+
+-------------------------------------------------------------------------
+Common Datasets:
+[EEGCVPR40]()
+[ThoughtViz]()
+[Object](https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0135697&type=printable)
 
 --------------------------------------------------------------------------
  
@@ -34,7 +42,15 @@ Steps:
 - For detailed Explanation visit [here](https://github.com/bbaaii/DreamDiffusion) 
 
 ------------------------------------------------------------
-#### [Visual Saliency and Image Reconstruction from EEG Signals via an Effective Geometric Deep Network-Based Generative Adversarial Network:](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://ieeexplore.ieee.org/document/9320159&ved=2ahUKEwig94aDu-yHAxX0TKQEHTeMAf0QFnoECBMQAQ&usg=AOvVaw3ztGyfYLu_r6N34G0MAfA4)
+What if we wanted to use GAN's?
+Tirupattur et al. [ThoughtViz](https://www.crcv.ucf.edu/papers/acmmm18/thoughtviz.pdf) proposed a GAN network that learns from a small-size dataset [22 ](https://github.com/SforAiDl/neuroscience-ai-reading-course/blob/master/Divisha_2017A7PS0959G/Imagined_Speech_Classification_Using_EEG/Envisioned_speech_recognition_using_EEG_sensors.md). They have added a trainable Gaussian layer in the network that learns mean μ and variance σ of the EEG feature, preventing the discriminator network from overfitting. 
+The work by Mishra et al. [NeuroGAN](https://link.springer.com/article/10.1007/s00521-022-08178-1) uses an attention-based GAN network along with a trainable Gaussian layer for synthesizing images from small-size EEG dataset [22 ](https://github.com/SforAiDl/neuroscience-ai-reading-course/blob/master/Divisha_2017A7PS0959G/Imagined_Speech_Classification_Using_EEG/Envisioned_speech_recognition_using_EEG_sensors.md). 
+Both the work [ 41 , 22] use the pre-trained image classification network for training the generator in GAN. 
+In contrast, the work by Singh et al. [ 38 ](https://arxiv.org/abs/2302.10121) uses a metric learning-based approach for feature EEG extraction and modifies the GAN training strategy to use Differentiable Data Augmentation (DiffAug) [ 46](https://arxiv.org/abs/2006.10738) method for overcoming the problem of small-size EEG dataset. 
+This also reduces the network complexity, i.e., a trainable Gaussian layer and a pre-trained image encoder are not required for training the generator in GAN.
+
+------------------------------------------------------------
+#### [Learning Robust Deep Visual Representations from EEG Brain Recordings](https://arxiv.org/abs/2310.16532)
 
 - Inputs: EEG, Ground truth obtained by eye tracking
 - Output: Image saliency map and full reconstructed image
