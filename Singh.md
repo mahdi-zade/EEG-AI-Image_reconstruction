@@ -1,4 +1,6 @@
-![image](https://github.com/user-attachments/assets/9eb143e8-ac4a-461d-9db9-61848b95e02a)#### Summary
+https://github.com/prajwalsingh/EEGStyleGAN-ADA
+
+### Summary
 proposes a two-stage method for learning robust deep visual representations from EEG brain recordings. The first stage involves obtaining EEG-derived features, and the second stage uses these features for image generation and classification. The authors claim that their method is generalizable across three different datasets and achieves state-of-the-art performance in image synthesis from EEG signals.
 
 
@@ -6,7 +8,7 @@ proposes a two-stage method for learning robust deep visual representations from
 
 This figure shows sample images generated from EEG signals using a technique called EEGStyleGAN-ADA. Each image is generated with different EEG signals across different classes from the EEGCVPR40 dataset.
 
-#### Feature Extraction
+### Feature Extraction
 
 **What is feature extraction?**
 Feature extraction is a process of selecting and transforming raw data into a more meaningful representation that can be used for machine learning tasks.
@@ -48,26 +50,46 @@ The performance of the CNN architecture degrades as the timestep size of the EEG
 
 Previous methods have tailored their architectures to specific datasets, whereas the approach described in this article uses a more generalizable architecture that can be applied across different datasets.
 
-#### Showing the generalizability
-the network is trained on 34 classes from EEGCVPR40 [39] dataset and tested on the remaining 6
-classes, which are a dog, cat, fish, canoe, golf, and pool.
-Compared to [ 26], a pre-trained image network is not required. 
-As shown in Table 1, our method performs better and has a higher SVM [12 ] and kNN [25] score.
-![image](https://github.com/user-attachments/assets/fb3b4b57-dafc-47a2-83b1-8dea4c049b22)
+### Showing the generalizability
+1. **Unseen Data**
+  The network is trained on 34 classes from EEGCVPR40 [39] dataset and tested on the remaining 6
+  classes, which are a dog, cat, fish, canoe, golf, and pool.
+  Compared to [ 26], a pre-trained image network is not required. 
+  As shown in Table 1, our method performs better and has a higher SVM [12 ] and kNN [25] score.
+  ![image](https://github.com/user-attachments/assets/fb3b4b57-dafc-47a2-83b1-8dea4c049b22)
+  
+  We have also shown t-SNE [42] plot for all the 6 unseen classes learned features Fig.6.
+  ![image](https://github.com/user-attachments/assets/595133d5-2513-4906-81de-1cc77dabf126)
 
-We have also shown t-SNE [42] plot for all the 6 unseen classes learned features Fig.6.
-![image](https://github.com/user-attachments/assets/595133d5-2513-4906-81de-1cc77dabf126)
+2. **Image to Image Translation**
+   Instead of using an EEG signal from EEGCVPR40 [ 39 ] dataset, its equivalent images are used, which are transformed into EEG representation space, and later, the image is reconstructed with approximation using a pre-trained generative network.
+  The EEG features generated from unseen images can reconstruct the images with high fidelity.
+  ![image](https://github.com/user-attachments/assets/102c7473-14e4-44de-b706-324d04b06da0)
 
 
-#### Image Generation
-
+### Image Generation with EEG based conditioning
 ![image](https://github.com/user-attachments/assets/f9720a41-11c0-4b8f-afa8-45cbb40d2f32)
-The model takes feature vector and noise sampled from iso-tropic Gaussian distribution as input and synthesizes the desired image. StyleGAN-ADA uses adaptive discriminator augmentation, which helps the discriminator learn with limited data by augmenting real images at training time.
 
-#### Joint Space Learning for EEG and Image
+EEGStyleGAN-ADA network which is a tailored version of StyleGAN-ADA. StyleGAN-ADA uses adaptive discriminator augmentation, which helps the discriminator learn with limited data by augmenting real images at training time.
 
-**learning joint representations between EEG signals and images**
-The goal is to develop a model that can learn to represent both EEG signals and images in a shared space, allowing for comparisons and relationships to be drawn between the two modalities.
+Inputs:
+  - feature vector obtained from a pre-trained LSTM network with triplet loss.
+  - noise vector sampled from iso-tropic Gaussian distribution
+
+Training:
+  - employ the ’cifar’ hyperparameters, leveraging data available from the EEGCVPR40 [39 ] and ThoughtViz [22 , 41 ] datasets.
+
+### Image Generation with class based conditioning
+Class-based conditioning involves using one-hot encoded class labels (such as categories or predefined labels) rather than actual EEG signals as input. This method is commonly used in conditional generative models but faces challenges when applied to datasets with imbalanced classes (like the EEGCVPR40 dataset, which contains a limited number of images per class). The ablation study involving class-based conditioning serves to show how the model performs when not using the EEG data itself, but just the class information. It also demonstrates the limitations of current state-of-the-art methods, like NoisyTwins, when generating images with class labels on complex, imbalanced datasets.
+
+**Why separate these two types of conditioning?**
+  Show the advantage of directly using EEG data for more personalized and specific image generation.
+  Compare this with class-based conditioning to assess whether using class labels alone can achieve the same results, and to highlight the challenges and shortcomings of that approach (especially in the context of EEG data).
+  The result suggests that the photorealistic images we are synthesizing with the proposed EEGStyleGAN-ADA are the best among all the GAN state-of-the-art methods for EEG-based image generation.
+![image](https://github.com/user-attachments/assets/b18fce1e-386d-417b-b783-f169affe42ca)
+
+
+### EEG CLIP: Joint Space Learning for EEG and Image
 
 **Previous Methods**
 1. Use a pre-trained image encoder to generate a representation for images equivalent to an EEG signal and train an EEG encoder network to regress the image feature vector.
@@ -81,147 +103,50 @@ Use CLIP-based loss for training the complete pipeline.
 As shown in Fig.4, each EEG-image pair is treated as a positive sample (diagonal elements) and the rest as a negative sample (non-diagonal elements).  
 Uses a pre-trained image encoder for the EEG-based image retrieval tasks.
 
-![image](https://github.com/user-attachments/assets/986702cd-8472-4901-992e-891bc69b81cf)
+**Investigating the impact of batch size and the number of training epochs on learning joint representations**
+![image](https://github.com/user-attachments/assets/7dbccb62-63b1-4f73-8e5f-7939425fedb4)
 
-#### Datasets
+The proposed EEGClip framework achieved superior performance when trained with a **batch size of 64** and for **2048 epochs**.
+This configuration yielded the highest recall rates for different values of K. 
+To provide a visual representation of the effectiveness of EEGClip, we present image retrieval results from EEG in Fig.8. 
+![image](https://github.com/user-attachments/assets/c577b6e2-352f-416b-8ed7-abfb0652046d)
+
+These results demonstrate the ability of our framework to retrieve relevant images based on EEG
+input accurately.
+
+
+### Evaluation Merics:
+- Inception score: a commonly used metric in generative models.
+- Frechet Inception Distance (FID)
+- Kernel Inception Distance (KID)
+- Mean Reciprocal Rank (MRR) assesses the effectiveness of the retrieval model in accurately ranking the unique visually-cued instances
+- Mean Average Precision (mAP) evaluates the retrieval model’s ability to capture all relevant visual cues. These relevant visual cues correspond to images that belong to the same semantic class as the correct match.
+
+
+### Datasets
 | Name | Number of classes | Images per class | EEG channels | No. of participants | EEG-Image pairs | Parent dataset
 |------------|------------|-------------|---------------|-------------|---------------|--------|
 | [EEGCVPR40 ](https://arxiv.org/pdf/2211.06956)   | 40  | 50 | 128 | N/A | 11800 | ImageNet |
 | [ThoughtViz](https://web.njit.edu)   | 10    | 50 | 14 | 23 | N/A | ImageNet |
 | [Object](https://www.crcv.ucf.edu)   | 6    | 12 | 128 | 10 | N/A | Non |
 
+### Discussion
+In this paper, we:
+1. addressed the problem of EEG-to-image reconstruction
+2. presented a comprehensive method to extract visual information from EEG data,
+3. synthesize images using extracted EEG features
+4. jointly train an EEG-Image model for tasks such as EEG-based image retrieval.
+5. We conducted experiments and ablation studies on three different datasets: EEGCVPR40 [ 39 ], ThoughtViz [22 , 41 ], and Object [17], using various architectures and loss functions.
+6. We first discussed different strategies for feature extraction from EEG data, including supervised and self-supervised methods.
+7. We compared supervised classification methods with self-supervised/metric-based learning approaches and found that the latter yielded more discriminative and generalizable features, particularly using triplet loss.
+8. We demonstrated the same through improved k-means accuracy, t-SNE visualizations, and zero-shot classification.
+9. We explored the generation of images from EEG features using the GAN framework. For this, we proposed EEGStyleGAN-ADA, which incorporated EEG features and noise vectors to synthesize diverse and high-fidelity images.
+10. Our method outperformed previous EEG-to-image synthesis networks, with 62.9% and 36.13% inception score improvement on the EEGCVPR40 [ 39 ] dataset and Thoughtviz [ 22, 41 ] dataset, which is better than state-of-the-art performance using GAN.
+11. We have shown that achieving the photorealistic effect is not trivial with the help of class-based conditioning 4.3
+12. We investigated joint representation space learning for EEG and image using the proposed EEGClip framework. We achieved significant improvements in joint representation learning by freezing the weights of a pretrained image encoder and training an EEG feature encoder using CLIP-based loss.
+13. Upon examining the effects of batch size and epoch numbers, we observed a direct correlation between increased batch size and enhanced performance, peaking at a batch size of 64 and 2048 epochs, yielding scores of 79% and 95% for top@1 for EEG and image, respectively. However, extending the epoch count beyond this point showed no significant improvement.
+14. EEGClip has shown 5.96% improvement over the previous state-of-the-art joint representation learning method.
 
-
-
-**Section 1: Unseen EEG Clustering**
-
-The article presents a t-SNE (t-Distributed Stochastic Neighbor Embedding) plot of 6 unseen categories of EEG features, which shows the clustering of these features. The k-means accuracy of this clustering is 0.62.
-
-**Table 1: Unseen EEG Classification**
-
-The table compares the performance of different methods (SVM, kNN, K-Means) on unseen EEG classification tasks. The proposed method, EEG-LSTM, achieves an accuracy of 0.93, 0.86, and 0.625 for SVM, kNN, and K-Means, respectively.
-
-Before we proceed, do you have any specific questions about this section or would you like me to explain any of the concepts in more detail?
-
-------6------
-
-I'd be happy to help you understand the concepts in this article step by step. Let's break it down into smaller sections and go through each one together.
-
-**Section 4.3: Image Synthesis**
-
-The article discusses a method for generating images from EEG signals using a generative model called EEGStyleGAN-ADA. This model is a modified version of the StyleGAN-ADA model, which is a state-of-the-art generative model.
-
-**Key concepts:**
-
-1. **EEG signals**: Electroencephalography (EEG) signals are recordings of the electrical activity of the brain.
-2. **Image synthesis**: The process of generating images from EEG signals.
-3. **Generative model**: A type of machine learning model that generates new data samples that resemble existing data.
-4. **StyleGAN-ADA**: A state-of-the-art generative model that uses a technique called style-based generation to generate high-quality images.
-
-**How EEGStyleGAN-ADA works:**
-
-1. The model uses a pre-trained LSTM network to extract features from the EEG signals.
-2. The extracted features are concatenated with a noise vector sampled from an isotropic Gaussian distribution.
-3. The combined input is fed into the EEGStyleGAN-ADA network, which generates an image.
-
-**Evaluation metrics:**
-
-1. **Inception score**: A metric used to evaluate the quality of generated images.
-2. **Frechet Inception Distance (FID)**: A metric used to evaluate the quality and diversity of generated images.
-3. **Kernel Inception Distance (KID)**: A metric used to evaluate the quality and diversity of generated images.
-
-**Results:**
-
-The article presents a comparison of the proposed EEGStyleGAN-ADA method with existing EEG-to-image synthesis networks. The results show that EEGStyleGAN-ADA outperforms existing methods in terms of the Inception score.
-
-Do you have any questions about this section, or would you like me to explain any of these concepts in more detail?
-
-------7------
-
-I'd be happy to help you understand the concepts in this article step by step.
-
-Let's start with the first part of the article, which appears to be a table and some related text.
-
-**Table 4: EEGClip Results**
-
-The table shows the results of fine-tuning a neural network called EEGClip on a dataset called EEGCVPR40 for both EEG and image classification tasks. The table has several columns and rows, which I'll break down:
-
-* **Batch Size**: This column shows the batch size used during training, which is a hyperparameter that controls how many samples are processed together during each iteration of training. The batch sizes used are 64, 128, 256, 512, 1024, and 2048.
-* **EEG16**, **32**, and **64**: These columns show the top-K accuracy results for EEG classification tasks using EEGClip with different batch sizes. The numbers 16, 32, and 64 likely refer to the number of EEG channels used.
-* **Image16**, **32**, and **64**: These columns show the top-K accuracy results for image classification tasks using EEGClip with different batch sizes.
-
-**Top-K Accuracy**
-
-The top-K accuracy metric measures the proportion of true labels that are among the top K predicted labels. For example, if K=5, the top-5 accuracy measures the proportion of true labels that are among the top 5 predicted labels.
-
-**Fine-Tuning**
-
-Fine-tuning a neural network means adjusting the network's parameters to fit a specific task or dataset. In this case, the EEGClip network is fine-tuned on the EEGCVPR40 dataset for both EEG and image classification tasks.
-
-**EEGCVPR40 Dataset**
-
-The EEGCVPR40 dataset is a collection of EEG signals and corresponding images. The dataset is used to train and evaluate the EEGClip network.
-
-**Image Retrieval using EEG**
-
-The text describes an experiment where the pre-trained EEGClip network is used to extract features from EEG signals and images. The goal is to retrieve relevant images based on the EEG input. The figure shows an example of the top-5 retrieved images for a given EEG signal.
-
-That's a good starting point. Do you have any specific questions about this part of the article, or would you like me to explain the next section?
-
-------8------
-
-I'd be happy to help you understand the concepts in this article step by step. Let's break it down.
-
-**Step 1: Understanding the context**
-
-The article appears to be discussing a research paper on using EEG (Electroencephalography) signals to generate images. The authors have proposed a framework called EEGClip, which involves fine-tuning a neural network to learn a joint representation of EEG and image data.
-
-**Step 2: Table 5 and Figure 9**
-
-Table 5 shows the results of fine-tuning the EEGClip network on the EEGCVPR40 dataset for both EEG and image classification. The table presents the top-K accuracy scores for different batch sizes and epochs.
-
-Figure 9 illustrates the concept of class-based conditioning, which is used to generate images using EEG signals. The authors have used a variation of StyleGAN2, called NoisyTwins, to learn image generation on long-tail conditional datasets.
-
-**Step 3: EEGStyleGAN-ADA and joint representation learning**
-
-The authors have proposed EEGStyleGAN-ADA, a framework that incorporates EEG features and noise vectors to synthesize diverse and high-fidelity images. They have achieved state-of-the-art performance on the EEGCVPR40 and Thoughtviz datasets.
-
-The paper also discusses joint representation space learning for EEG and image using the EEGClip framework. The authors have achieved significant improvements in joint representation learning by freezing the weights of a pre-trained image encoder and training an EEG feature encoder using CLIP-based loss.
-
-**Step 4: Limitations and Conclusion**
-
-The authors acknowledge some limitations of their work, including the need to achieve state-of-the-art performance using a single architecture for EEG feature extraction across all datasets. They also mention that the quality of images in a limited dataset regime can be improved with better GAN training strategies.
-
-The conclusion summarizes the main contributions of the paper, including the introduction of EEGStyleGAN-ADA and the joint representation learning framework. The authors also outline their future plans to improve EEG-based image synthesis and explore novel techniques.
-
-Let me know if you'd like me to elaborate on any of these points or if you have specific questions about the article!
-
-------9------
-
-I'd be happy to help you understand the concepts in this article step by step.
-
-It appears that this is a list of references cited in a research paper. The references are from various fields, including neuroscience, computer vision, machine learning, and signal processing.
-
-To begin, let's start with the first reference:
-
-[1] Mahdi Bamdad, Homayoon Zarshenas, and Mohammad A Auais. Application of bci systems in neurorehabilitation: a scoping review. Disability and Rehabilitation: Assistive Technology, 10(5):355–364, 2015.
-
-This reference appears to be a review paper on the application of Brain-Computer Interface (BCI) systems in neurorehabilitation. A BCI is a system that allows people to control devices or communicate with others using only their brain signals.
-
-What would you like to know about this reference? Would you like me to explain what a BCI is, or what neurorehabilitation entails?
-
-------10------
-
-I'm happy to help you understand the concepts in this article step by step.
-
-It appears that the article is a list of references related to computer vision, machine learning, and brain-computer interfaces. There are 48 references cited, and each reference is a research paper or article that has been published in a conference or journal.
-
-Before we dive into the concepts, I want to clarify that this article doesn't seem to have a specific narrative or argument. Instead, it's a collection of references that might be related to a particular topic or research area.
-
-To proceed, I can help you in a few ways:
-
-1. We can go through each reference one by one, and I can provide a brief summary of what the paper is about.
-2. We can identify the common themes or topics that emerge from these references, and I can help you understand the concepts related to those themes.
-3. If you have a specific question or topic in mind, feel free to ask, and I'll do my best to explain the relevant concepts using the references provided.
-
-Which approach would you like to take?
+### Limitations
+1. Although we have used the same architecture for EEG feature extraction across all datasets, it is still an open problem to achieve SOTA performance using a single architecture.
+2. In EEG-based image synthesis, we outperform the previous methods. Still, the quality of images in a limited dataset regime can be improved with better GAN training strategies, and we can further utilize the same for EEG-based image reconstruction
