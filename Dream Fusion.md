@@ -65,11 +65,10 @@ In conclusion,the aim is to fine-tune the EEG representation obtained from pre-t
    - Unlike natural language processing, where low mask ratios are common, a **high mask ratio** performs better for EEG data in this study.
 
 4. **CLIP Aligning**:
-   - The alignment of EEG representations with images is achieved through the **CLIP encoder**.
-   - **Experiments 13-14** (Table 1) show that **performance decreases** significantly when **CLIP supervision** is not used.
-   - Even without pre-training, using CLIP to align EEG features still produces reasonable results, emphasizing the importance of **CLIP supervision** in the method.
-
-![image](https://github.com/user-attachments/assets/2d030973-8dcd-4fbd-91f6-2fe0ee20df8d)
+- The alignment of EEG representations with images is achieved through the **CLIP encoder**.
+- **Experiments 13-14** (Table 1) show that **performance decreases** significantly when **CLIP supervision** is not used.
+- Even without pre-training, using CLIP to align EEG features still produces reasonable results, emphasizing the importance of **CLIP supervision** in the method.
+- ![image](https://github.com/user-attachments/assets/2d030973-8dcd-4fbd-91f6-2fe0ee20df8d)
 
 
 ### Limitations 
