@@ -1,9 +1,8 @@
 # EEG_AI_Image-reconstruction
 
-This page is an analysis and summarization of two papers that attempt to reconstruct images from EEG brain recordings.
-extracting visual information from EEG signals has been a long-standing research focus within the BCI field
-We are living in an era that the AI and EEG are intersecting and we can decode EEG recordings better than ever and are able to obtain valuable insights and results from it.
-This page is a part of a deep dive into one of the many applications of EEG-AI. If you're interested in knowing more about all the other applications of EEG-AI, please visit [EEG-AI Applications Hub](https://github.com/Avir-AI/EEG_Applications_Hub).
+Welcome to this project page, where we explore and analyze groundbreaking papers focused on reconstructing visual images from EEG brain recordings. Decoding visual information from EEG signals has been a long-standing challenge in the Brain-Computer Interface (BCI) field, but recent advances in AI have made it possible to decode these recordings with remarkable accuracy, providing insights that were previously unattainable.
+
+This page is part of an in-depth exploration into one of the many promising applications of EEG-AI, where we leverage modern machine learning techniques to bridge the gap between neural signals and visual perception. For those interested in a comprehensive overview of EEG-AI applications across different domains, please visit our [EEG-AI Applications Hub](https://github.com/Avir-AI/EEG_Applications_Hub), where you’ll find resources, high-impact articles, and cutting-edge developments across the field. 
 
 --------------------------------------------------------------------------
 
