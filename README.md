@@ -76,7 +76,7 @@ Results:
 
 ![image](https://github.com/user-attachments/assets/9e16fafd-f646-4c92-b026-18f6e0a58469)
 
-- For detailed Explanation visit [here](https://github.com/bbaaii/DreamDiffusion)
+- For detailed Explanation visit [here](https://github.com/mahdi-zade/EEG-AI-Image_reconstruction/blob/main/Dream%20Fusion.md)
 - Original Github [repository](https://github.com/bbaaii/DreamDiffusion).
 
 ------------------------------------------------------------
