@@ -15,7 +15,7 @@ This page is a part of a deep dive into one of the many applications of EEG-AI. 
 | [Brain-Supervised Image Editing](https://openaccess.thecvf.com/content/CVPR2022/papers/Davis_Brain-Supervised_Image_Editing_CVPR_2022_paper.pdf) | 2022  | EEG Data           | Edited Images        | Brain response encoding     | Generative Adversarial Network (GAN) | Latent space learning via brain responses | Uses implicit brain responses as supervision for learning semantic features and editing images | Comparable performance to manual labeling for semantic editing |
 | [DreamDiffusion](https://arxiv.org/pdf/2306.16934)  | 2023  | EEG Signals    | Generated Images| Temporal masked signal modeling | Stable Diffusion, CLIP      | Image generation from EEG signals | Leverages pre-trained text-to-image models for generating images directly from EEG, with CLIP for embedding alignment | Promising results with high-quality images, overcoming EEG signal challenges |
 | [MinD-Vis](https://arxiv.org/pdf/2211.06956)   | 2023 | fMRI Data  | Reconstructed Images | Masked Signal Modeling (Sparse Masking) | Latent Diffusion Model (LDM), Self-Supervised Representation| Double Conditioning to enforce decoding consistency | Sparse-coded masked brain modeling | Outperformed state-of-the-art by 66% in semantic mapping, 41% in generation quality (FID) |
-| [EEGStyleGAN-ADA](https://arxiv.org/abs/2310.16532)   | 2024  | EEG Signals, Iso-tropic Gaussian distribution  | Generated Images | N/A | LSTM and CNN | N/A | N/A | Achieved 62.9% and 36.13% inception score improvement on EEGCVPR40 and ThoughtViz datasets |
+| [EEGStyleGAN-ADA](https://arxiv.org/abs/2310.16532)   | 2024  | EEG Signals, Iso-tropic Gaussian distribution  | Generated Images | N/A | Discriminative feature extraction using a pre-trained LSTM network with triplet loss. | N/A | In the EEGClip framework, the LSTM network is trained jointly with a pre-trained ResNet50 image encoder using a CLIP-based loss. | Achieved 62.9% and 36.13% inception score improvement on EEGCVPR40 and ThoughtViz datasets |
 
 
 -------------------------------------------------------------------------
@@ -50,21 +50,34 @@ Steps:
  
 [DreamDiffusion: Generating High-Quality Images from Brain EEG Signals](https://arxiv.org/pdf/2306.16934)
 
-- Inputs: EEG, original image
-- Output: Image saliency map
+- Inputs: EEG, Limited EEG-image pairs for fine-tuning.
+- Output: Generated images based on EEG signals.
 
 Steps:
 1. Preprocessing:
-   - Self-supervised/metric-based learning.
-   - Supervised classification methods are preferable if the test data distribution overlaps with the train data distribution, which is not always the case with the EEG dataset.
-3. Encoding the EEG and Image data into a common space. 
-4. Training the encoders as a classification problem based on the definition of a compatibility function. The encoders are trained to maximize the similarity between the embeddings of corresponding images and EEGs. This aims to capture the relationship between what a person is seeing and their brain activity.
-5. Analyzing the saliency score of each pixel. Once trained, these encoders analyze how the compatibility between the EEG and image embeddings changes when different regions of the image are suppressed. Regions whose removal causes significant variations in compatibility are considered salient, resulting in a visual saliency map.
+   - EEG Data: filtered (5-95 Hz), padded to 128 channels, truncated to 512 samples.
+   - Temporal tokens created by grouping every four time steps.
+2. Pre-training: Masked signal modeling on EEG encoder for 500 epochs.
+3. Fine-tuning: Stable Diffusion fine-tuned with EEG features for 300 epochs.
+4. CLIP Alignment: CLIP loss optimizes alignment of EEG, image, and text spaces.
+
+Model Architecture:
+- EEG Encoder: ViT-Large with a 1D convolution layer and a 1024-dimensional embedding projection.
+- Masked Signal Modeling: asymmetric architecture with 75% token masking, using MSE loss.
+- Stable Diffusion Integration: EEG embeddings condition SD’s U-Net with cross-attention.
+- CLIP Alignment: EEG embeddings mapped to CLIP dimensions for alignment.
+
+
+Results:
+- Evaluation: 50-way top-1 classification task using ImageNet1K classifier.
+- Ablation Study: Shows full pre-training and CLIP alignment improve accuracy.
+- Optimal Mask Ratio: 0.75 maximizes performance for EEG data.
+
 
 ![image](https://github.com/user-attachments/assets/9e16fafd-f646-4c92-b026-18f6e0a58469)
 
-
-- For detailed Explanation visit [here](https://github.com/bbaaii/DreamDiffusion) 
+- For detailed Explanation visit [here](https://github.com/bbaaii/DreamDiffusion)
+- Original Github [repository](https://github.com/bbaaii/DreamDiffusion).
 
 ------------------------------------------------------------
 What if we wanted to use GAN's?
