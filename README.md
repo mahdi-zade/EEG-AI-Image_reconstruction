@@ -46,8 +46,41 @@ Steps:
 - For detailed Explanation visit [here](https://github.com/mahdi-zade/EEG-AI-Image_reconstruction/blob/main/Learning%20Robust%20Deep%20Visual%20Representations%20from%20EEG%20Brain%20Recordings.md) 
 
 --------------------------------------------------------------------------
+#### [DreamDiffusion: Generating High-Quality Images from Brain EEG Signals](https://arxiv.org/pdf/2306.16934)
+
+- Inputs: EEG, Limited EEG-image pairs for fine-tuning.
+- Output: Generated images based on EEG signals.
+
+Steps:
+1. Preprocessing:
+   - EEG Data: filtered (5-95 Hz), padded to 128 channels, truncated to 512 samples.
+   - Temporal tokens created by grouping every four time steps.
+2. Pre-training: Masked signal modeling on EEG encoder for 500 epochs.
+3. Fine-tuning: Stable Diffusion fine-tuned with EEG features for 300 epochs.
+4. CLIP Alignment: CLIP loss optimizes alignment of EEG, image, and text spaces.
+
+Model Architecture:
+- EEG Encoder: ViT-Large with a 1D convolution layer and a 1024-dimensional embedding projection.
+- Masked Signal Modeling: asymmetric architecture with 75% token masking, using MSE loss.
+- Stable Diffusion Integration: EEG embeddings condition SD’s U-Net with cross-attention.
+- CLIP Alignment: EEG embeddings mapped to CLIP dimensions for alignment.
+
+
+Results:
+- State-of-the-art 100-way top-1 classification accuracy on GOD dataset: 23.9%, outperforming the previous best by 66%.
+- State-of-the-art generation quality (FID) on GOD dataset: 1.67, outperforming the previous best by 41%.
+- For the first time, we show that non-invasive brain recordings can be used to decode images with similar performance as invasive measures.
+
+
+![flowchart](https://github.com/user-attachments/assets/e5cb7e8a-4dc5-4aa1-9fa0-14555b9ebdb0)
+Stage A (left): Self-supervised pre-training on large-scale fMRI dataset using Sparse-Coding based Masked Brain Modeling (SC-MBM); Stage B (right): Double-Conditioned Latent Diffusion Model (DC-LDM) for image generation conditioned on brain recordings. 
+
+- For detailed Explanation visit [here](https://github.com/mahdi-zade/EEG-AI-Image_reconstruction/blob/main/Dream%20Fusion.md)
+- Original Github [repository](https://mind-vis.github.io/).
+
+--------------------------------------------------------------------------
  
-[DreamDiffusion: Generating High-Quality Images from Brain EEG Signals](https://arxiv.org/pdf/2306.16934)
+#### [DreamDiffusion: Generating High-Quality Images from Brain EEG Signals](https://arxiv.org/pdf/2306.16934)
 
 - Inputs: EEG, Limited EEG-image pairs for fine-tuning.
 - Output: Generated images based on EEG signals.
