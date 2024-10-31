@@ -15,7 +15,14 @@ This page is part of an in-depth exploration into one of the many promising appl
 | [DreamDiffusion](https://arxiv.org/pdf/2306.16934)  | 2023  | EEG Signals    | Generated Images| Temporal masked signal modeling | Stable Diffusion, CLIP      | Image generation from EEG signals | Leverages pre-trained text-to-image models for generating images directly from EEG, with CLIP for embedding alignment | Promising results with high-quality images, overcoming EEG signal challenges |
 | [MinD-Vis](https://arxiv.org/pdf/2211.06956)   | 2023 | fMRI Data  | Reconstructed Images | Masked Signal Modeling (Sparse Masking) | Latent Diffusion Model (LDM), Self-Supervised Representation| Double Conditioning to enforce decoding consistency | Sparse-coded masked brain modeling | Outperformed state-of-the-art by 66% in semantic mapping, 41% in generation quality (FID) |
 | [EEGStyleGAN-ADA](https://arxiv.org/abs/2310.16532)   | 2024  | EEG Signals, Iso-tropic Gaussian distribution  | Generated Images | N/A | Discriminative feature extraction using a pre-trained LSTM network with triplet loss. | N/A | In the EEGClip framework, the LSTM network is trained jointly with a pre-trained ResNet50 image encoder using a CLIP-based loss. | Achieved 62.9% and 36.13% inception score improvement on EEGCVPR40 and ThoughtViz datasets |
-
+| [Psychometry](https://arxiv.org/pdf/2403.20022)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [Mind Artist](https://openaccess.thecvf.com/content/CVPR2024/papers/Chen_Mind_Artist_Creating_Artistic_Snapshots_with_Human_Thought_CVPR_2024_paper.pdf)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [MindBridge](https://arxiv.org/pdf/2404.07850)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [MindLDM](https://ieeexplore.ieee.org/document/10586647)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [ 3T fMRI ](https://arxiv.org/pdf/2404.05107)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [MindLDM](https://ieeexplore.ieee.org/document/10586647)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [MindLDM](https://ieeexplore.ieee.org/document/10586647)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [MindLDM](https://ieeexplore.ieee.org/document/10586647)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
 
 -------------------------------------------------------------------------
 Common Datasets:
