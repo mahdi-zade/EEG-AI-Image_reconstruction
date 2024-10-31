@@ -1,5 +1,12 @@
 # EEG_AI_Image-reconstruction
 
+## Sample Code:
+SCMBM_EEG_V1.ipynb in colab
+
+## Checklist
+[] read [this](https://arxiv.org/pdf/2211.06956) and add the code to SCMBM_EEG_V1.ipynb in colab
+
+
 Welcome to this project page, where we explore and analyze groundbreaking papers focused on reconstructing visual images from EEG brain recordings. Decoding visual information from EEG signals has been a long-standing challenge in the Brain-Computer Interface (BCI) field, but recent advances in AI have made it possible to decode these recordings with remarkable accuracy, providing insights that were previously unattainable.
 
 This page is part of an in-depth exploration into one of the many promising applications of EEG-AI, where we leverage modern machine learning techniques to bridge the gap between neural signals and visual perception. For those interested in a comprehensive overview of EEG-AI applications across different domains, please visit our [EEG-AI Applications Hub](https://github.com/Avir-AI/EEG_Applications_Hub), where you’ll find resources, high-impact articles, and cutting-edge developments across the field. 
@@ -20,9 +27,13 @@ This page is part of an in-depth exploration into one of the many promising appl
 | [MindBridge](https://arxiv.org/pdf/2404.07850)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
 | [MindLDM](https://ieeexplore.ieee.org/document/10586647)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
 | [ 3T fMRI ](https://arxiv.org/pdf/2404.05107)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
-| [MindLDM](https://ieeexplore.ieee.org/document/10586647)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
-| [MindLDM](https://ieeexplore.ieee.org/document/10586647)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
-| [MindLDM](https://ieeexplore.ieee.org/document/10586647)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [Dual-coding theory”](https://ieeexplore.ieee.org/document/10617909)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [VTVBrain](https://ieeexplore.ieee.org/document/10618584)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [DiffusionDCI](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10458118)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [2D to 3D](https://ieeexplore.ieee.org/document/10377891)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [AudioDiffusion](https://colab.ws/articles/10.1109%2Fisceic59030.2023.10271237)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [NeuroDM](https://github.com/DongguanQian/NeuroDM/tree/main/NeuroDM)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+
 
 -------------------------------------------------------------------------
 Common Datasets:
