@@ -1,11 +1,12 @@
 # EEG_AI_Image-reconstruction
 
 ## Sample Code:
-SCMBM_EEG_V1.ipynb in colab
+The code for MindVis is forked and adapted for EEG data
 
 ## Checklist
-[] read [this](https://arxiv.org/pdf/2211.06956) and add the code to SCMBM_EEG_V1.ipynb in colab
-
+[] read [this](https://arxiv.org/pdf/2410.02780) and try generating the code.
+[] It seems like the main person incharge of the code and the dataset is [Luigi Sigillo](https://huggingface.co/datasets/luigi-s/EEG_Image_CVPR_ALL_subj). Message him to get the code.
+[] You can also message [Eleonora Lopez](leonora.lopez@uniroma1.it.)
 
 Welcome to this project page, where we explore and analyze groundbreaking papers focused on reconstructing visual images from EEG brain recordings. Decoding visual information from EEG signals has been a long-standing challenge in the Brain-Computer Interface (BCI) field, but recent advances in AI have made it possible to decode these recordings with remarkable accuracy, providing insights that were previously unattainable.
 
