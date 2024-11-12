@@ -18,15 +18,26 @@ This page is part of an in-depth exploration into one of the many promising appl
 |------------|------------|------------|-------------|---------------|-------------|-------------------|--------------|-------------|
 | [EEG-conditioned GAN for Image Generation](https://www.crcv.ucf.edu/papers/iccv17/egpaper_for_review.pdf) | 2017  | EEG Signals (evoked by viewing images) | Generated Images (Object Categories) | EEG signals from 6 subjects while viewing 40 ImageNet object categories | Recurrent Neural Networks (RNN) for EEG feature extraction, GAN for image generation | EEG signals condition GAN to generate images related to observed object categories | - Combines GAN with RNN to process EEG signals for generating images. <br> - Uses EEG signals to condition the image generation process for object categories. <br> - Aimed at "reading the mind" by reconstructing realistic images from brain signals. | Generated images for certain object classes (e.g., pandas, airplanes) were realistic and highly resemble the observed images evoking EEG signals. |
 | [Brain2Image](https://web.njit.edu/~usman/courses/cs698_fall19/Brain2Image_%20Converting%20Brain%20Signals%20into%20Images.pdf)   | 2017  | EEG Data    | Reconstructed Images | Noise-free representation using LSTM | LSTM, GAN, VAE | Latent space learned from EEG signals | Generative model generates visual samples semantically coherent with stimuli | GAN: better sharpness, VAE: less realistic images |
-| [ThoughtViz](https://www.crcv.ucf.edu/papers/acmmm18/thoughtviz.pdf)    | 2018  | EEG Data          | Reconstructed Images | EEG signal encoding      | Conditional GAN            | Latent space learned from EEG | Conditional GAN generates class-specific images based on thoughts, learns distribution from limited data    | Effective on digits, characters, and object datasets
-| [Brain-Supervised Image Editing](https://openaccess.thecvf.com/content/CVPR2022/papers/Davis_Brain-Supervised_Image_Editing_CVPR_2022_paper.pdf) | 2022  | EEG Data           | Edited Images        | Brain response encoding     | Generative Adversarial Network (GAN) | Latent space learning via brain responses | Uses implicit brain responses as supervision for learning semantic features and editing images | Comparable performance to manual labeling for semantic editing |
-| [DreamDiffusion](https://arxiv.org/pdf/2306.16934)  | 2023  | EEG Signals    | Generated Images| Temporal masked signal modeling | Stable Diffusion, CLIP      | Image generation from EEG signals | Leverages pre-trained text-to-image models for generating images directly from EEG, with CLIP for embedding alignment | Promising results with high-quality images, overcoming EEG signal challenges |
-| [MinD-Vis](https://arxiv.org/pdf/2211.06956)   | 2023 | fMRI Data  | Reconstructed Images | Masked Signal Modeling (Sparse Masking) | Latent Diffusion Model (LDM), Self-Supervised Representation| Double Conditioning to enforce decoding consistency | Sparse-coded masked brain modeling | Outperformed state-of-the-art by 66% in semantic mapping, 41% in generation quality (FID) |
-| [EEGStyleGAN-ADA](https://arxiv.org/abs/2310.16532)   | 2024  | EEG Signals, Iso-tropic Gaussian distribution  | Generated Images | N/A | Discriminative feature extraction using a pre-trained LSTM network with triplet loss. | N/A | In the EEGClip framework, the LSTM network is trained jointly with a pre-trained ResNet50 image encoder using a CLIP-based loss. | Achieved 62.9% and 36.13% inception score improvement on EEGCVPR40 and ThoughtViz datasets |
+| [ThoughtViz](https://www.crcv.ucf.edu/papers/acmmm18/thoughtviz.pdf)    | 2018  | EEG         | Reconstructed Images | EEG signal encoding      | Conditional GAN            | Latent space learned from EEG | Conditional GAN generates class-specific images based on thoughts, learns distribution from limited data    | Effective on digits, characters, and object datasets
+| [Brain-Supervised Image Editing](https://openaccess.thecvf.com/content/CVPR2022/papers/Davis_Brain-Supervised_Image_Editing_CVPR_2022_paper.pdf) | 2022  | EEG           | Edited Images        | Brain response encoding     | Generative Adversarial Network (GAN) | Latent space learning via brain responses | Uses implicit brain responses as supervision for learning semantic features and editing images | Comparable performance to manual labeling for semantic editing |
+| [DreamDiffusion](https://arxiv.org/pdf/2306.16934)  | 2023  | EEG   | Generated Images| Temporal masked signal modeling | Stable Diffusion, CLIP      | Image generation from EEG signals | Leverages pre-trained text-to-image models for generating images directly from EEG, with CLIP for embedding alignment | Promising results with high-quality images, overcoming EEG signal challenges |
+| [MinD-Vis](https://arxiv.org/pdf/2211.06956)   | 2023 | fMRI  | Reconstructed Images | Masked Signal Modeling (Sparse Masking) | Latent Diffusion Model (LDM), Self-Supervised Representation| Double Conditioning to enforce decoding consistency | Sparse-coded masked brain modeling | Outperformed state-of-the-art by 66% in semantic mapping, 41% in generation quality (FID) |
+| [EEGStyleGAN-ADA](https://arxiv.org/abs/2310.16532)   | 2024  | EEG  | Generated Images | N/A | Discriminative feature extraction using a pre-trained LSTM network with triplet loss. | N/A | In the EEGClip framework, the LSTM network is trained jointly with a pre-trained ResNet50 image encoder using a CLIP-based loss. | Achieved 62.9% and 36.13% inception score improvement on EEGCVPR40 and ThoughtViz datasets |
 | [Psychometry](https://arxiv.org/pdf/2403.20022)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
-| [Mind Artist](https://openaccess.thecvf.com/content/CVPR2024/papers/Chen_Mind_Artist_Creating_Artistic_Snapshots_with_Human_Thought_CVPR_2024_paper.pdf)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
 | [MindBridge](https://arxiv.org/pdf/2404.07850)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [Guess What I Think](https://arxiv.org/pdf/2410.02780)   | 2024  | EEG | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [BrainVis](https://arxiv.org/pdf/2312.14871)   | 2024  | EEG | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [BrainDecoder](https://www.arxiv.org/pdf/2409.05279)   | 2024  | EEG | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [MindEye2](https://arxiv.org/pdf/2403.11207)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [Dongyang Li et al.](https://github.com/dongyangli-del/EEG_Image_decode?utm_source=catalyzex.com)   | 2024  | EEG | Generated Images | N/A | N/A | N/A | N/A | N/A |
+
+--------------------------------------------------
+
+
+| Model Name | Year | Input Type | Output Type | Preprocessing | Feature Extraction | Decoding Strategy | Key Features | Performance |
+|------------|------------|------------|-------------|---------------|-------------|-------------------|--------------|-------------|
 | [MindLDM](https://ieeexplore.ieee.org/document/10586647)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
+| [Mind Artist](https://openaccess.thecvf.com/content/CVPR2024/papers/Chen_Mind_Artist_Creating_Artistic_Snapshots_with_Human_Thought_CVPR_2024_paper.pdf)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
 | [ 3T fMRI ](https://arxiv.org/pdf/2404.05107)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
 | [Dual-coding theory”](https://ieeexplore.ieee.org/document/10617909)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
 | [VTVBrain](https://ieeexplore.ieee.org/document/10618584)   | 2024  | fMRI | Generated Images | N/A | N/A | N/A | N/A | N/A |
@@ -38,9 +49,10 @@ This page is part of an in-depth exploration into one of the many promising appl
 
 -------------------------------------------------------------------------
 Common Datasets:
-[EEGCVPR40]()
-[ThoughtViz]()
-[Object](https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0135697&type=printable)
+- [ThoughtViz](https://drive.google.com/file/d/1atP9CsjWIT-hg3fX--fcC1hg0uvg9bEH/view): 10 object classes. a subset of the ImageNet. 14
+channels. 23 participants.
+- [Object](https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0135697&type=printable)
+- [EEG ImageNet also known as EEGCVPR40](https://github.com/perceivelab/eeg_visual_classification?tab=readme-ov-file): EEG recordings from 6 subjects who were shown 50 images for each of 40 classes from the ImageNet dataset
 
 ------------------------------------------------------------
 #### [Learning Robust Deep Visual Representations from EEG Brain Recordings](https://arxiv.org/abs/2310.16532)
